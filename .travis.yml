@@ -12,9 +12,8 @@ branches:
 install:
 # 安装最新的hugo
   - export GOPROXY=https://goproxy.cn 
-  #- go get -u -v github.com/gohugoio/hugo 
-  - go mod download github.com/gohugoio/hugo 
-
+  - export GOPATH=$HOME/go
+  - go get -v github.com/spf13/hugo
 script:
 # 运行hugo命令
   - hugo
