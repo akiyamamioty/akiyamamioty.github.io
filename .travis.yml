@@ -18,11 +18,11 @@ script:
 
 deploy:
   provider: pages # 重要，指定这是一份github pages的部署配置
-  skip-cleanup: true # 重要，不能省略
-  local-dir: public # 静态站点文件所在目录
-  target-branch: master # 要将静态站点文件发布到哪个分支
-  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在GitHub上申请、再到配置到Travis
+  skip_cleanup: true # 重要，不能省略
+  local_dir: public # 静态站点文件所在目录
+  target_branch: master # 要将静态站点文件发布到哪个分支
+  github_token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在GitHub上申请、再到配置到Travis
   fqdn: taoyuan.fun # 如果是自定义域名，此处要填
-  keep-history: true # 是否保持target-branch分支的提交记录
+  keep_history: true # 是否保持target-branch分支的提交记录
   on:
     branch: hugo # 博客源码的分支
