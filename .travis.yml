@@ -14,7 +14,7 @@ install:
   - go get -v github.com/spf13/hugo
 script:
 # 运行hugo命令
-  - hugo --theme=hyde
+  - hugo --theme=beautifulhugo
 
 
 deploy:
