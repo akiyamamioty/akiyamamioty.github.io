@@ -11,7 +11,7 @@ branches:
 
 install:
 # 安装最新的hugo
-  - go get -u -v github.com/spf13/hugo
+  - go get -v github.com/spf13/hugo
 script:
 # 运行hugo命令
   - hugo --theme=hyde
