@@ -1,4 +1,6 @@
-baseURL = "taoyuan.fun"
+baseURL = "https://taoyuan.fun"
 languageCode = "en-us"
 title = "My New Hugo Site"
 theme = "hyde"
+draft: false
+relativeurls = true
