@@ -10,8 +10,6 @@ branches:
     - hugo 
 
 install:
-
-before_script:
 # 安装最新的hugo
   
   - go get -u -v github.com/gohugoio/hugo 
