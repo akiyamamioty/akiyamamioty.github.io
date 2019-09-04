@@ -2,8 +2,8 @@
 # If you want to see the full configuration, please check `full-config.toml` .
 # And see https://gohugo.io/getting-started/configuration/ .
 
-#baseURL = "https://taoyuan.fun"
-baseURL = "http://localhost:1313"
+baseURL = "https://taoyuan.fun"
+#baseURL = "http://localhost:1313"
 languageCode = "zh-CN"
 title = "My New Hugo Site"
 relativeurls = true
