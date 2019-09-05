@@ -12,24 +12,34 @@
     
     
     <item>
-      <title>About</title>
+      <title>关于我</title>
       <link>https://taoyuan.fun/about/</link>
-      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://taoyuan.fun/about/</guid>
       
-        <description>&lt;p&gt;Hugo is a static site engine written in Go.&lt;/p&gt;
+        <description>
 
-&lt;p&gt;It makes use of a variety of open source projects including:&lt;/p&gt;
+&lt;p&gt;输不丢人 怕才丢人&lt;/p&gt;
+
+&lt;h2 id=&#34;关于我&#34;&gt;关于我&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/cobra&#34;&gt;Cobra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/viper&#34;&gt;Viper&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/jWalterWeatherman&#34;&gt;J Walter Weatherman&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/cast&#34;&gt;Cast&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;来自上海&lt;/li&gt;
+&lt;li&gt;本科毕业于上海大学&lt;/li&gt;
+&lt;li&gt;从事后端开发工程师&lt;/li&gt;
+&lt;li&gt;email: akiyamamio.ty@gmail.com&lt;/li&gt;
+&lt;li&gt;wechat: MTgzMjE3MzM4ODIK (base64)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;关于博客&#34;&gt;关于博客&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本站使用Hugo生成，采用hugo-theme-jane主题&lt;/li&gt;
+&lt;li&gt;记录想法、生活和技术&lt;/li&gt;
+&lt;li&gt;文章有任何错误，随时欢迎联系&lt;/li&gt;
+&lt;li&gt;拒绝任何政治相关言论&lt;/li&gt;
+&lt;/ul&gt;
 </description>
       
     </item>
