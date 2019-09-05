@@ -5,23 +5,25 @@
 baseURL = "https://taoyuan.fun"
 #baseURL = "http://localhost:1313"
 languageCode = "zh-CN"
-title = "My New Hugo Site"
+title = "Live your dream"
 relativeurls = true
 enableRobotsTXT = true
 enableEmoji = true
 theme = "jane"
 
 hasCJKLanguage = true     # has chinese/japanese/korean ? # 自动检测是否包含 中文\日文\韩文
-paginate = 3              # Number of articles displayed on the homepage  # 首页每页显示的文章数
+paginate = 5             # Number of articles displayed on the homepage  # 首页每页显示的文章数
 rssLimit = 20             # Limit Entry Count to Rss file # 限制 Rss 文章输出数量
 disqusShortname = ""      # disqus_shortname
 googleAnalytics = ""      # UA-XXXXXXXX-X
 copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
 
 # language support # en / zh-cn / other... translations present in i18n/
-defaultContentLanguage = "en"           # Default language to use
+defaultContentLanguage = "zh-cn"           # Default language to use
 [languages.en]
   languageCode = "en"
+[languages.zh-cn]
+  languageCode = "zh-CN"
 
 [author]                  # essential                     # 必需
   name = "陶源"
@@ -42,14 +44,14 @@ defaultContentLanguage = "en"           # Default language to use
   identifier = "tags"
   url = "/tags/"
 [[menu.main]]
-  name = "Categories"
+  name = "分类"
   weight = 40
   identifier = "categories"
   url = "/categories/"
-[[menu.main]]
-  name = "external-link"
-  weight = 50
-  url = "https://gohugo.io"
+#[[menu.main]]
+#  name = "external-link"
+#  weight = 50
+#  url = "https://gohugo.io"
 
 
 [params]

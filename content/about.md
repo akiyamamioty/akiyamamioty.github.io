@@ -1,7 +1,7 @@
 ---
 title: "关于我"
-date: 2019-09-4T21:38:52+08:00
-lastmod: 2019-09-4T21:41:52+08:00
+date: 2019-09-04T21:38:52+08:00
+lastmod: 2019-09-04T21:41:52+08:00
 menu: "main"
 weight: 50
 
@@ -17,7 +17,7 @@ mathjax: false
  * 来自上海
  * 本科毕业于上海大学
  * 从事后端开发工程师
- * email: akiyamamio.ty@gmail.com
+ * email: <akiyamamio.ty@gmail.com>
  * wechat: MTgzMjE3MzM4ODIK (base64)
 
 ## 关于博客
