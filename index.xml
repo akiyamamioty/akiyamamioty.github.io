@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>Live your dream</title>
     <link>https://taoyuan.fun/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on Live your dream</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Tue, 03 Sep 2019 22:23:37 +0800</lastBuildDate>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 04 Sep 2019 21:38:52 +0800</lastBuildDate>
     
         <atom:link href="https://taoyuan.fun/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>关于我</title>
       <link>https://taoyuan.fun/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 04 Sep 2019 21:38:52 +0800</pubDate>
       
       <guid>https://taoyuan.fun/about/</guid>
       
@@ -28,7 +28,7 @@
 &lt;li&gt;来自上海&lt;/li&gt;
 &lt;li&gt;本科毕业于上海大学&lt;/li&gt;
 &lt;li&gt;从事后端开发工程师&lt;/li&gt;
-&lt;li&gt;email: akiyamamio.ty@gmail.com&lt;/li&gt;
+&lt;li&gt;email: &lt;a href=&#34;mailto:akiyamamio.ty@gmail.com&#34;&gt;akiyamamio.ty@gmail.com&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;wechat: MTgzMjE3MzM4ODIK (base64)&lt;/li&gt;
 &lt;/ul&gt;
 
