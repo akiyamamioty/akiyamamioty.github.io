@@ -29,32 +29,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>docs</title>
-      <link>https://taoyuan.fun/categories/docs/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/categories/docs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>index</title>
-      <link>https://taoyuan.fun/categories/index/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/categories/index/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shortcodes</title>
-      <link>https://taoyuan.fun/categories/shortcodes/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/categories/shortcodes/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
