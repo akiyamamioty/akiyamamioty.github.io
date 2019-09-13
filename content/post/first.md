@@ -1,5 +1,6 @@
 ---
 title: "test"
+draft: true
 date: 2019-09-03T22:23:37+08:00
 ---
 ### Hello Hugo

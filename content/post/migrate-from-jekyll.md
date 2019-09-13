@@ -1,5 +1,6 @@
 ---
 date: 2014-03-10
+draft: true
 title: "Migrate to Hugo from Jekyll"
 tags: [
     "go",
