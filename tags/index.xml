@@ -6,44 +6,35 @@
     <description>Recent content in Tags on Live your dream</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 04 Mar 2019 16:01:23 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Sep 2019 22:53:54 +0800</lastBuildDate>
     
 	<atom:link href="https://taoyuan.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>math</title>
-      <link>https://taoyuan.fun/tags/math/</link>
-      <pubDate>Mon, 04 Mar 2019 16:01:23 +0800</pubDate>
+      <title>GC</title>
+      <link>https://taoyuan.fun/tags/gc/</link>
+      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
       
-      <guid>https://taoyuan.fun/tags/math/</guid>
+      <guid>https://taoyuan.fun/tags/gc/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>preview</title>
-      <link>https://taoyuan.fun/tags/preview/</link>
-      <pubDate>Mon, 04 Mar 2019 16:01:23 +0800</pubDate>
+      <title>JAVA</title>
+      <link>https://taoyuan.fun/tags/java/</link>
+      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
       
-      <guid>https://taoyuan.fun/tags/preview/</guid>
+      <guid>https://taoyuan.fun/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-6</title>
-      <link>https://taoyuan.fun/tags/tag-6/</link>
-      <pubDate>Mon, 04 Mar 2019 16:01:23 +0800</pubDate>
+      <title>JVM</title>
+      <link>https://taoyuan.fun/tags/jvm/</link>
+      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
       
-      <guid>https://taoyuan.fun/tags/tag-6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shortcodes</title>
-      <link>https://taoyuan.fun/tags/shortcodes/</link>
-      <pubDate>Tue, 06 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/shortcodes/</guid>
+      <guid>https://taoyuan.fun/tags/jvm/</guid>
       <description></description>
     </item>
     
@@ -57,137 +48,29 @@
     </item>
     
     <item>
+      <title>preview</title>
+      <link>https://taoyuan.fun/tags/preview/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/tags/preview/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shortcodes</title>
+      <link>https://taoyuan.fun/tags/shortcodes/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/tags/shortcodes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>tag-7</title>
       <link>https://taoyuan.fun/tags/tag-7/</link>
       <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
       
       <guid>https://taoyuan.fun/tags/tag-7/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>footnote</title>
-      <link>https://taoyuan.fun/tags/footnote/</link>
-      <pubDate>Thu, 01 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/footnote/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>markdown</title>
-      <link>https://taoyuan.fun/tags/markdown/</link>
-      <pubDate>Thu, 01 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag-11</title>
-      <link>https://taoyuan.fun/tags/tag-11/</link>
-      <pubDate>Thu, 01 Mar 2018 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/tag-11/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>English</title>
-      <link>https://taoyuan.fun/tags/english/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/english/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag-2</title>
-      <link>https://taoyuan.fun/tags/tag-2/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/tag-2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>development</title>
-      <link>https://taoyuan.fun/tags/development/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://taoyuan.fun/tags/go/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://taoyuan.fun/tags/golang/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>templates</title>
-      <link>https://taoyuan.fun/tags/templates/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/templates/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>themes</title>
-      <link>https://taoyuan.fun/tags/themes/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/themes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://taoyuan.fun/tags/hugo/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jekyll</title>
-      <link>https://taoyuan.fun/tags/jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/jekyll/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Syntax Highlighting</title>
-      <link>https://taoyuan.fun/tags/syntax-highlighting/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/syntax-highlighting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag-5</title>
-      <link>https://taoyuan.fun/tags/tag-5/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
-      
-      <guid>https://taoyuan.fun/tags/tag-5/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>JvmGC - Live your dream</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="陶源" />
+  <meta name="description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备" />
+
+  <meta name="keywords" content="技术, 生活, 想法" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.59.0-DEV" />
+
+
+<link rel="canonical" href="https://taoyuan.fun/post/jvmgc/" />
+
+
+
+<link rel="icon" href="../../favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="JvmGC" />
+<meta property="og:description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://taoyuan.fun/post/jvmgc/" />
+<meta property="article:published_time" content="2019-09-13T22:53:54+08:00" />
+<meta property="article:modified_time" content="2019-09-13T22:53:54+08:00" />
+<meta itemprop="name" content="JvmGC">
+<meta itemprop="description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备">
+
+
+<meta itemprop="datePublished" content="2019-09-13T22:53:54&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-13T22:53:54&#43;08:00" />
+<meta itemprop="wordCount" content="3071">
+
+
+
+<meta itemprop="keywords" content="JAVA,JVM,GC," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JvmGC"/>
+<meta name="twitter:description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="../../" class="logo">Live your dream</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          <div class="mobile-menu-parent">
+            <span class="mobile-submenu-open"></span>
+            <a href="https://taoyuan.fun">
+              docs
+            </a>
+          </div>
+          <ul class="mobile-submenu-list">
+            
+              <li>
+                <a href="https://taoyuan.fun/post/image-preview/">Image Preview</a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="../../lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="../../lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="../../" class="logo">
+    
+      Live your dream
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          <a class="menu-item-link menu-parent" href="https://taoyuan.fun">docs</a>
+          <ul class="submenu">
+            
+              <li>
+                <a href="https://taoyuan.fun/post/image-preview/">Image Preview</a>
+              </li>
+            
+          </ul>
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">JvmGC</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-09-13" class="post-time">
+          2019-09-13
+        </time>
+        <div class="post-category">
+            <a href="https://taoyuan.fun/categories/java/"> JAVA </a>
+            <a href="https://taoyuan.fun/categories/jvm/"> JVM </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#jvm虚拟机结构">JVM虚拟机结构</a></li>
+<li><a href="#几个概念">几个概念</a></li>
+<li><a href="#gc-算法">GC 算法</a>
+<ul>
+<li><a href="#标记-清除算法">标记-清除算法</a></li>
+<li><a href="#复制-copying-的收集算法">复制（Copying）的收集算法</a></li>
+<li><a href="#标记-整理算法">标记-整理算法</a></li>
+<li><a href="#分代收集-generationalcollection-算法">“分代收集”（GenerationalCollection）算法</a></li>
+</ul></li>
+<li><a href="#gc收集器">GC收集器</a>
+<ul>
+<li><a href="#serial收集器">Serial收集器</a></li>
+<li><a href="#parnew-收集器">ParNew 收集器</a></li>
+<li><a href="#parallel-scavenge收集器">Parallel Scavenge收集器</a></li>
+<li><a href="#cms-收集器">CMS 收集器</a>
+<ul>
+<li><a href="#cms收集过程">CMS收集过程</a></li>
+</ul></li>
+<li><a href="#下面列出七个基本的收集器">下面列出七个基本的收集器：</a></li>
+</ul></li>
+<li><a href="#gc收集器组合">GC收集器组合</a></li>
+<li><a href="#有关gc的调优">有关GC的调优</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<p>JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备，简单了解了JVM的垃圾回收机制。</p>
+
+<h2 id="jvm虚拟机结构">JVM虚拟机结构</h2>
+
+<p><div align=center><img src="../../image/jvm/1.png" alt="JVM虚拟机架构" /></div></p>
+
+<p>简单说说数据区每一部分的作用：</p>
+
+<ul>
+<li><p><strong>Java堆（Heap）</strong>,是Java虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。</p></li>
+
+<li><p><strong>方法区（Method Area）</strong>,与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p></li>
+
+<li><p><strong>程序计数器（Program Counter Register）</strong>,程序计数器（Program CounterRegister）是一块较小的内存空间，它的作用可以看做是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p></li>
+
+<li><p><strong>JVM栈（JVM Stacks）</strong>,与程序计数器一样，Java虚拟机栈（Java Virtual MachineStacks）也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（StackFrame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p></li>
+
+<li><p><strong>本地方法栈(Native Method Stacks）</strong>,本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native方法服务。</p></li>
+</ul>
+
+<h2 id="几个概念">几个概念</h2>
+
+<ol>
+<li><p>本篇主要所提及的垃圾回收机制，主要是针对JAVA堆的。</p></li>
+
+<li><p>在讨论垃圾回收机制之前，需要先知道JVM会回收哪些对象？</p>
+
+<p>简单来说，会被GC掉的对象是： 不是GC roots并且没有被GC roots引用的对象。</p>
+
+<p>这里不讨论哪些对象、引用可以成为GC roots，如感兴趣可以自行深入了解一下。</p></li>
+</ol>
+
+<h2 id="gc-算法">GC 算法</h2>
+
+<h3 id="标记-清除算法">标记-清除算法</h3>
+
+<p>算法分为“标记”和“清除”两个阶段：标记阶段：找到所有可访问的对象，做个标记 ，清除阶段：遍历堆，把未被标记的对象回收。之所以说它是最基础的收集算法，是因为后续的收集算法都是基于这种思路并对其缺点进行改进而得到的。
+<div align=center><img src="../../image/jvm/2.png" alt="标记-清除" /></div></p>
+
+<p>它的主要缺点有两个：</p>
+
+<ol>
+<li><p>效率问题，标记和清除过程的效率都不高；</p></li>
+
+<li><p>另外一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致，当程序在以后的运行过程中需要分配较大对象时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</p></li>
+</ol>
+
+<h3 id="复制-copying-的收集算法">复制（Copying）的收集算法</h3>
+
+<p>它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。</p>
+
+<p><div align=center><img src="../../image/jvm/3.png" alt="复制（Copying）的收集算法" /></div></p>
+
+<p>该算法使得每次都是对其中的一块进行内存回收，内存分配时也就不用考虑内存碎片等复杂情况，只要移动堆顶指针，按顺序分配内存即可，实现简单，运行高效。只是这种算法的代价是将内存缩小为原来的一半，持续复制长生存期的对象则导致效率降低。并且该算法在对象存活率较高时就要执行较多的复制操作，效率将会变低。更关键的是，如果不想浪费50%的空间，就需要有额外的空间进行分配担保，以应对被使用的内存中所有对象都100%存活的极端情况，所以在老年代一般不能直接选用这种算法。</p>
+
+<h3 id="标记-整理算法">标记-整理算法</h3>
+
+<p>根据老年代的特点，有人提出了另外一种“标记-整理”（Mark-Compact）算法，标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。</p>
+
+<p><div align=center><img src="../../image/jvm/4.png" alt="标记-整理" /></div></p>
+
+<h3 id="分代收集-generationalcollection-算法">“分代收集”（GenerationalCollection）算法</h3>
+
+<p>把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。而老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用“标记-清除”或“标记-整理”算法来进行回收。</p>
+
+<h2 id="gc收集器">GC收集器</h2>
+
+<h3 id="serial收集器">Serial收集器</h3>
+
+<p>一个新生代收集器，单线程执行，使用复制算法。它在进行垃圾收集时，必须暂停其他所有的工作线程(用户线程)。是Jvm client模式下默认的新生代收集器。对于限定单个CPU的环境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
+
+<p><div align=center><img src="../../image/jvm/5.png" alt="Serial收集器" /></div></p>
+
+<h3 id="parnew-收集器">ParNew 收集器</h3>
+
+<p>其实就是serial的多线程版本，ParNew在单线程的情况下甚至不如Serial，ParNew是除了serial之外唯一能和CMS配合的。</p>
+
+<p><div align=center><img src="../../image/jvm/6.png" alt="ParNew收集器" /></div></p>
+
+<h3 id="parallel-scavenge收集器">Parallel Scavenge收集器</h3>
+
+<p>和ParNew收集器类似，是一个新生代收集器。使用复制算法的并行多线程收集器。
+主要适应主要适合在后台运算而不需要太多交互的任务。比如需要与用户交互的程序，良好的响应速度能提升用户的体验；而高吞吐量则可以最高效率地利用CPU时间，尽快地完成程序的运算任务等。
+ <div align=center><img src="../../image/jvm/7.png" alt="Parallel Scavenge收集器" /></div></p>
+
+<h3 id="cms-收集器">CMS 收集器</h3>
+
+<p><div align=center><img src="../../image/jvm/8.png" alt="CMS收集器" /></div></p>
+
+<h4 id="cms收集过程">CMS收集过程</h4>
+
+<p>CMS算法主要分为四个步骤：
+<div align=center><img src="../../image/jvm/9.png" alt="CMS收集过程" /></div></p>
+
+<p>a. 暂停所有应用线程(stop-the-word)并且标记能直接从roots节点到达的节点，虽然会造成STW，由于只扫描全局变量、栈等根节点直接到达的对象，这一步会非常快。</p>
+
+<p>b.恢复应用线程，并且开启gc线程从第一个步骤中扫描到的节点开始进行深度遍历并标记，这个过程GC Thread和应用线程是同时进行的，当应用进程改变了某个对象的状态时会把当前对象所在的page标记为dirty，new的object所在的page也标记为dirty，深度遍历完整个对象图。</p>
+
+<p>c.暂停所有应用进程并扫描roots以及标记为dirty page所在的区域，这个步骤也会暂停所有应用，由于只扫描roots以及dirty page，因此暂停时间比较短。</p>
+
+<p>d.恢复应用进程并对内存进行回收。</p>
+
+<p>图中C虽然未被GC roots引用，但依旧被标记出来。是因为不希望在过程中再次造成dirty page。因此C对象会在下次GC时被回收</p>
+
+<p>（此处page如何分页，暂时没有找到相关资料。）</p>
+
+<p>总之CMS将stop-the-world的时间降到最低，能给电商网站用户带来最好的体验。</p>
+
+<p>尽管CMS的GC线程对CPU的占用率会比较高，但在多核的服务器上还是展现了优越的特性，目前也被部署在国内的各大电商网站上。</p>
+
+<h3 id="下面列出七个基本的收集器">下面列出七个基本的收集器：</h3>
+
+<p>Serial（串行GC）标记-复制</p>
+
+<p>Serial Old（MSC）（串行GC）标记-整理</p>
+
+<p>ParNew（并行GC）标记-复制</p>
+
+<p>Parallel Scavenge（并行回收GC）标记-复制</p>
+
+<p>Parallel Old（并行GC）标记-整理</p>
+
+<p>CMS（并发GC）标记-清除</p>
+
+<p>G1（JDK1.7+） （该收集器没有过多了解，性能据说是相对较好的，先留个坑之后填上。</p>
+
+<h2 id="gc收集器组合">GC收集器组合</h2>
+
+<p><div align=center><img src="../../image/jvm/10.png" alt="GC收集器组合" /></div></p>
+
+<h2 id="有关gc的调优">有关GC的调优</h2>
+
+<p>我没有工程上的具体调优经验，不过了解的是：GC停顿时间缩短是以牺牲吞吐量和新生代空间来换取的：系统把新生代调小一些，收集300MB新生代肯定比收集500MB快吧，这也直接导致垃圾收集发生得更频繁一些，原来10秒收集一次、每次停顿100毫秒，现在变成5秒收集一次、每次停顿70毫秒。停顿时间的确在下降，但吞吐量也降下来了。</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">陶源</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+      2019-09-13
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://taoyuan.fun/tags/java/">JAVA</a>
+          <a href="https://taoyuan.fun/tags/jvm/">JVM</a>
+          <a href="https://taoyuan.fun/tags/gc/">GC</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="../../post/image-preview/">
+            <span class="next-text nav-default">Image Preview</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:akiyamamio.ty@gmail.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://taoyuan.fun/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2019
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        陶源
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="../../lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="../../js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="../../js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
