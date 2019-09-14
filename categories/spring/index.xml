@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spring on Live your dream</title>
+    <link>https://taoyuan.fun/categories/spring/</link>
+    <description>Recent content in Spring on Live your dream</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 14 Sep 2019 16:56:56 +0800</lastBuildDate>
+    
+	<atom:link href="https://taoyuan.fun/categories/spring/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spring @Async/@Transactional失效原因及解决方案</title>
+      <link>https://taoyuan.fun/post/asyncandtransactionaldontwork/</link>
+      <pubDate>Sat, 14 Sep 2019 16:56:56 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/asyncandtransactionaldontwork/</guid>
+      <description>之前提到实现AOP的方法有动态代理、编译期，类加载期织入等等，Spring实现AOP的方法则就是利用了动态代理机制，正因如此，才会导致某些情</description>
+    </item>
+    
+    <item>
+      <title>Spring - AOP简单理解及术语解释</title>
+      <link>https://taoyuan.fun/post/spring_aop/</link>
+      <pubDate>Sat, 14 Sep 2019 16:40:40 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/spring_aop/</guid>
+      <description>Spring到Spring Boot再到Spring Cloud，逐渐地变成了一套完整的企业分布式系统的解决方案，已经不能单纯的认为是基于Spr</description>
+    </item>
+    
+    <item>
+      <title>springboot2.0 &#43; es5.5 &#43; rabbitmq搭建搜索服务踩坑</title>
+      <link>https://taoyuan.fun/post/springboot&#43;es/</link>
+      <pubDate>Sat, 14 Sep 2019 16:05:38 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/springboot&#43;es/</guid>
+      <description>前一阵子准备为项目搭建一个简单的搜索服务，虽然业务数据库mongodb提供了文本搜索的支持，但是在大量文档需要通过关键词进行定位时，es明显</description>
+    </item>
+    
+  </channel>
+</rss>

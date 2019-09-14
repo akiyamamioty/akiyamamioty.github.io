@@ -6,17 +6,35 @@
     <description>Recent content in Categories on Live your dream</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 13 Sep 2019 22:53:54 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Sep 2019 16:56:56 +0800</lastBuildDate>
     
 	<atom:link href="https://taoyuan.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>JAVA</title>
+      <title>Java</title>
       <link>https://taoyuan.fun/categories/java/</link>
-      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
+      <pubDate>Sat, 14 Sep 2019 16:56:56 +0800</pubDate>
       
       <guid>https://taoyuan.fun/categories/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spring</title>
+      <link>https://taoyuan.fun/categories/spring/</link>
+      <pubDate>Sat, 14 Sep 2019 16:56:56 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/categories/spring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch</title>
+      <link>https://taoyuan.fun/categories/elasticsearch/</link>
+      <pubDate>Sat, 14 Sep 2019 16:05:38 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/categories/elasticsearch/</guid>
       <description></description>
     </item>
     
@@ -26,6 +44,33 @@
       <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
       
       <guid>https://taoyuan.fun/categories/jvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docs</title>
+      <link>https://taoyuan.fun/categories/docs/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/categories/docs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>index</title>
+      <link>https://taoyuan.fun/categories/index/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/categories/index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shortcodes</title>
+      <link>https://taoyuan.fun/categories/shortcodes/</link>
+      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/categories/shortcodes/</guid>
       <description></description>
     </item>
     

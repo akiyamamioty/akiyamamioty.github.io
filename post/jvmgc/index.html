@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JvmGC - Live your dream</title>
+  <title>JVM GC算法和GC收集器概述 - Live your dream</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -57,25 +57,25 @@
 
 
 
-<meta property="og:title" content="JvmGC" />
+<meta property="og:title" content="JVM GC算法和GC收集器概述" />
 <meta property="og:description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://taoyuan.fun/post/jvmgc/" />
 <meta property="article:published_time" content="2019-09-13T22:53:54+08:00" />
 <meta property="article:modified_time" content="2019-09-13T22:53:54+08:00" />
-<meta itemprop="name" content="JvmGC">
+<meta itemprop="name" content="JVM GC算法和GC收集器概述">
 <meta itemprop="description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备">
 
 
 <meta itemprop="datePublished" content="2019-09-13T22:53:54&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-13T22:53:54&#43;08:00" />
-<meta itemprop="wordCount" content="3071">
+<meta itemprop="wordCount" content="3191">
 
 
 
 <meta itemprop="keywords" content="JAVA,JVM,GC," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="JvmGC"/>
+<meta name="twitter:title" content="JVM GC算法和GC收集器概述"/>
 <meta name="twitter:description" content="JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备"/>
 
 <!--[if lte IE 9]>
@@ -296,7 +296,7 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">JvmGC</h1>
+      <h1 class="post-title">JVM GC算法和GC收集器概述</h1>
       
       <div class="post-meta">
         <time datetime="2019-09-13" class="post-time">
@@ -445,7 +445,8 @@
 
 <h3 id="cms-收集器">CMS 收集器</h3>
 
-<p><div align=center><img src="../../image/jvm/8.png" alt="CMS收集器" /></div></p>
+<p>CMS收集器是为了低延迟而生，通过尽可能的并行执行垃圾回收的几个阶段来把延迟控制到最低。CMS收集器是老年代的垃圾收集器，一般情况下会有ParNew来配合执行(默认情况下也是ParNew)，ParNew也是使用并行的算法来执行年轻代的回收。
+ <div align=center><img src="../../image/jvm/8.png" alt="CMS收集器" /></div></p>
 
 <h4 id="cms收集过程">CMS收集过程</h4>
 
@@ -496,24 +497,6 @@
 
     
     
-<div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">陶源</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">
-      2019-09-13
-      
-    </span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
-  </p>
-</div>
 
 
     
@@ -530,7 +513,33 @@
       
       <nav class="post-nav">
         
+          <a class="prev" href="../../post/springboot&#43;es/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">springboot2.0 &#43; es5.5 &#43; rabbitmq搭建搜索服务踩坑</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         
+          <a class="next" href="../../post/shortcode-notice/">
+            <span class="next-text nav-default">Shortcodes Notice Preview</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
       </nav>
     </footer>
   </article>
