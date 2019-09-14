@@ -62,11 +62,12 @@ void asyncTask(String keyword) {
 **原因就是@Async和@Transaction利用了动态代理机制。**
 
 当Spring发现@Transactional或者@Async时，会自动生成一个ProxyObject，如：
-![ProxyObject](https://upload-images.jianshu.io/upload_images/6503295-cfcec77c49222596.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+ <div align=center>![ProxyObject](/image/async/1.png)</div>
 
 此时调用Class.transactionTask会调用ProxyClass.产生事务操作。
 然而当Class里的一个非事务方法调用了事务方法，ProxyClass是这样的：
-![ProxyObject with noTransactionTask](https://upload-images.jianshu.io/upload_images/6503295-29b5d44738e240b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+ <div align=center>![ProxyObject](/image/async/2.png)</div>
 
 到这里应该可以看明白了，如果调用了noTransactionTask方法，最终会调用到Class.transactionTask，而这个方法是不带有任何Transactional的信息的，也就是@Transactional根本没有生效哦。
 简单来说就是： **同一个类内这样调用的话，只有第一次调用了动态代理生成的ProxyClass，之后一直用的是不带任何切面信息的方法本身。**
