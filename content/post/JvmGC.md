@@ -1,5 +1,5 @@
 ---
-title: "JvmGC"
+title: "JVM GC算法和GC收集器概述"
 date: 2019-09-13T22:53:54+08:00
 draft: false
 tags: ["JAVA", "JVM", "GC"]
@@ -85,6 +85,7 @@ JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分�
 
 
 ### CMS 收集器
+CMS收集器是为了低延迟而生，通过尽可能的并行执行垃圾回收的几个阶段来把延迟控制到最低。CMS收集器是老年代的垃圾收集器，一般情况下会有ParNew来配合执行(默认情况下也是ParNew)，ParNew也是使用并行的算法来执行年轻代的回收。
  <div align=center>![CMS收集器](/image/jvm/8.png)</div>
 
 

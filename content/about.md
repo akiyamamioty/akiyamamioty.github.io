@@ -6,11 +6,11 @@ menu: "main"
 weight: 50
 
 # you can close something for this content if you open it in config.toml.
-comment: false
+comment: true
 mathjax: false
 ---
 
-输不丢人 怕才丢人
+反复与坚持之后<br>柔水终成雕刀
 
 
 ## 关于我
