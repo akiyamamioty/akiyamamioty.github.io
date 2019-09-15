@@ -69,7 +69,7 @@
 
 <meta itemprop="datePublished" content="2019-09-14T16:05:38&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-14T16:05:38&#43;08:00" />
-<meta itemprop="wordCount" content="1908">
+<meta itemprop="wordCount" content="1951">
 
 
 
@@ -359,21 +359,36 @@
 <h3 id="docker安装es会默认安装x-path-plugin"><strong>docker安装es会默认安装x-path plugin</strong></h3>
 
 <p>虽然spring-data支持es5.x，但是功能并不非常完善，因此如果安装了x-path插件，需要引入org.elasticsearch.client:x-pack-transport:5.5.0，版本必须和es版本一致，并且自己实现TransportClient，如下:</p>
-
-<pre><code>@Component
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">@Component
 public class ESconfig {
 	@Bean
 	public TransportClient transportClient() throws UnknownHostException {
 		TransportClient client = new PreBuiltXPackTransportClient(Settings.builder()
-					.put(&quot;cluster.name&quot;, &quot;docker-cluster&quot;)
-					.put(&quot;xpack.security.user&quot;, &quot;elastic:changeme&quot;)
+					.put(&#34;cluster.name&#34;, &#34;docker-cluster&#34;)
+					.put(&#34;xpack.security.user&#34;, &#34;elastic:changeme&#34;)
 					.build())
-					.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&quot;0.0.0.0&quot;), 9300));
+					.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(&#34;0.0.0.0&#34;), 9300));
 		return client;
 	}
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>这也是因为不想再到docker里去处理x-path这个插件而选择的一个比较快捷的解决方案，没必要的情况下，暂时也不用接触到es本身的一些东西。</p>
 
 <h3 id="使用默认序列化方式-mq会保存message的class信息导致deserialized失败"><strong>使用默认序列化方式, mq会保存message的class信息导致deserialized失败</strong></h3>
@@ -385,8 +400,29 @@ public class ESconfig {
 <h3 id="gradle配置可以使用-dloader-main指定启动函数"><strong>gradle配置可以使用-Dloader.main指定启动函数</strong></h3>
 
 <p>正是因为引入了mq，所以search服务需要启动一个consumer，用的方法是另外实现一个不启动Web服务的Application，并且配置一个SimpleMessageListenerContainer和MessageListenerAdapter如下:</p>
-
-<pre><code>@Bean
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">@Bean
 SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
         MessageListenerAdapter listenerAdapter,
         MQconfig properties) {
@@ -401,49 +437,77 @@ SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
 @Bean
 MessageListenerAdapter listenerAdapter() {
     MessageListenerAdapter listenerAdapter = new MessageListenerAdapter(itemConsumer,
-            &quot;consume&quot;);
+            &#34;consume&#34;);
     return listenerAdapter;
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>问题在于gradle配置的时候，找了很久如何使得build出来的jar包可以指定-Dloader.main指定启动Application，解决方法如下：
 在xxx.gradle文件里添加</p>
-
-<pre><code>bootJar {
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">bootJar {
     manifest {
-        attributes 'Main-Class': 'org.springframework.boot.loader.PropertiesLauncher'
+        attributes &#39;Main-Class&#39;: &#39;org.springframework.boot.loader.PropertiesLauncher&#39;
     }
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>在springboot 1.5.9的项目里，需要指定启动Application，需要添加</p>
-
-<pre><code>springBoot{
-    layout = &quot;ZIP&quot;
-}
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">springBoot{
+    layout = &#34;ZIP&#34;
+}</pre></td></tr></table>
+</div>
+</div>
 <p>查看是否生效的办法是build以后 直接解压jar包，在xxx(项目名)/META-INFO/MANIFEST.MF里查看，如果</p>
-
-<pre><code>Main-Class: org.springframework.boot.loader.PropertiesLauncher
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Main-Class: org.springframework.boot.loader.PropertiesLauncher</pre></td></tr></table>
+</div>
+</div>
 <p>则正确，如果</p>
-
-<pre><code>Main-Class: org.springframework.boot.loader.JarLauncher
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Main-Class: org.springframework.boot.loader.JarLauncher</pre></td></tr></table>
+</div>
+</div>
 <p>则依旧会启动文件里的Start-Class</p>
 
 <h3 id="es无法修改index的mapping"><strong>es无法修改Index的mapping</strong></h3>
 
 <p>由于只是单纯使用了es的文本检索功能，导致实际应用时有许多搜索结果不尽如人意的地方，比如搜索“桌子”， 无法搜索到 “电脑桌/办公桌”等xx桌内容，这样的情况还有很多。 因此加入了synonym dictionary，在需要分词的字段上不使用本身的ik_smart分词器，这样某些字段的mapping需要改为</p>
-
-<pre><code>// analyzer是自己的分词器名字
-@Field(type = FieldType.Text, index = true, analyzer = &quot;synonym&quot;)
-private String description;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">// analyzer是自己的分词器名字
+@Field(type = FieldType.Text, index = true, analyzer = &#34;synonym&#34;)
+private String description;</pre></td></tr></table>
+</div>
+</div>
 <p>由于es的mapping无法修改，只能通过手动创建一个新的mapping，再通过reIndex方法去backfill数据（es5.x自带了reIndex 的api）。网上有通过alias的方法，在某些修改场景下，不需要重新启动/部署应用就可以平滑的修改mapping，具体可以查询了解一下。</p>
 
 <p><strong>以上差不多搭建一个搜索服务踩到的一些坑，有几个消耗了大量时间和精力去解决，在此列出来希望希望有借鉴意义。之后搜索服务有优化的地方，还会继续慢慢更新</strong></p>

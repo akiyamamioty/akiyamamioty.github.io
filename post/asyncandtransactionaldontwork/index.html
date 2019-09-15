@@ -69,7 +69,7 @@
 
 <meta itemprop="datePublished" content="2019-09-14T16:56:56&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-14T16:56:56&#43;08:00" />
-<meta itemprop="wordCount" content="1071">
+<meta itemprop="wordCount" content="1117">
 
 
 
@@ -345,19 +345,42 @@
 <h2 id="async正常使用方法">@Async正常使用方法</h2>
 
 <p>我们已@Aysnc为例，在Spring boot中使用Async很简单：</p>
-
-<pre><code>@EnableAsync //添加此注解开启异步调用
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">@EnableAsync //添加此注解开启异步调用
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>当某些任务执行时间较长，且客户端不需要及时获取结果（如调用第三方API），只要在需要异步调用的任务上添加 <code>@Async</code>即可，如：</p>
-
-<pre><code>@Async
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">@Async
 void asyncTask(String keyword) {
     try {
         Thread.sleep(5000);
@@ -366,16 +389,33 @@ void asyncTask(String keyword) {
         //error tracking
     }
     System.out.println(keyword);
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>这样<code>asyncTask</code>就会异步执行。</p>
 
 <h2 id="async使用失效情况">@Async使用失效情况</h2>
 
 <p>然而，如果在同一个Class内，出现下面这样的情况，先调用一个非异步任务：</p>
-
-<pre><code>private void noAsyncTask(String keyword){
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">private void noAsyncTask(String keyword){
     asyncTask(keyword); //该方法内再调用异步方法
 }
 
@@ -388,9 +428,9 @@ void asyncTask(String keyword) {
         //error tracking
     }
     System.out.println(keyword);
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p><strong>此时，@Async是没有生效的</strong>。</p>
 
 <h2 id="失效原因">失效原因</h2>
@@ -411,8 +451,26 @@ void asyncTask(String keyword) {
 <h2 id="解决方案">解决方案</h2>
 
 <p>知道了原因，处理方法也特别简单，就是让noTransactionTask里依旧调用ProxyClass的transactionTask方法：只需要显示利用Spring暴露的AopContext即可。代码如下：</p>
-
-<pre><code>private void noAsyncTask(String keyword){
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">private void noAsyncTask(String keyword){
     // 注意这里 调用了代理类的方法
     ((YourClass) AopContext.currentProxy()).asyncTask(keyword);
 }
@@ -426,9 +484,9 @@ void asyncTask(String keyword) {
         //error tracking
     }
     System.out.println(keyword);
-}
-</code></pre>
-
+}</pre></td></tr></table>
+</div>
+</div>
 <p>记得要在Class上加上<code>@EnableAspectJAutoProxy(exposeProxy = true)</code>来暴露AOP的Proxy对象才行，否则会报错。</p>
 
 <p>或者就可以把这样的方法放到另外一个类里，不要产生类里一个非异步/非事务方法，调用了异步/事务方法，不过大家协同开发同一个文件的话，谁能保证没有人这样调用呢？总而言之无论什么方案，都是使得调用ProxyObject的方法。</p>
