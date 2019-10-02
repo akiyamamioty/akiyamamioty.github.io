@@ -17,7 +17,56 @@
   
   <url>
     <loc>https://taoyuan.fun/categories/</loc>
-    <lastmod>2019-09-18T23:31:04+08:00</lastmod>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/tags/http/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/post/httpandhttp2/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/post/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/tags/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/categories/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://taoyuan.fun/tags/%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2019-10-02T10:40:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,13 +86,6 @@
   </url>
   
   <url>
-    <loc>https://taoyuan.fun/tags/java/</loc>
-    <lastmod>2019-09-18T23:31:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://taoyuan.fun/categories/java/</loc>
     <lastmod>2019-09-18T23:31:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -51,21 +93,7 @@
   </url>
   
   <url>
-    <loc>https://taoyuan.fun/</loc>
-    <lastmod>2019-09-18T23:31:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://taoyuan.fun/post/</loc>
-    <lastmod>2019-09-18T23:31:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://taoyuan.fun/tags/</loc>
+    <loc>https://taoyuan.fun/tags/java/</loc>
     <lastmod>2019-09-18T23:31:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -163,14 +191,14 @@
   </url>
   
   <url>
-    <loc>https://taoyuan.fun/categories/jvm/</loc>
+    <loc>https://taoyuan.fun/tags/jvm/</loc>
     <lastmod>2019-09-13T22:53:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://taoyuan.fun/tags/jvm/</loc>
+    <loc>https://taoyuan.fun/categories/jvm/</loc>
     <lastmod>2019-09-13T22:53:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
