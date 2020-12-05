@@ -1,7 +1,6 @@
 ---
 title: "Java Synchronized 关键字的用法"
 date: 2019-12-04T21:50:00+08:00
-draft: false
 tags: ["JAVA", "JVM"]
 categories: ["JAVA", "JVM"]
 ---
