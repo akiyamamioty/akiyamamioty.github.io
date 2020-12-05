@@ -15,15 +15,15 @@ Java数据结构中定义了Map接口，该接口有四个常用实现类：Hash
 针对上面四个常用类简单的介绍一下：
 
 1. ***Hashtable***: 从下面的Java doc就可以看出，其本身是线程安全的，但是并发性不如concurrent中的ConcurrentHashMap，而不需要线程安全时候，也推荐使用HashMap，故可以算是一个遗留类，不推荐使用。
- <div align=center>![Hashtable](/image/hashmap1/1.png)</div>
+	<div align=center>![Hashtable](/image/hashmap1/1.png)</div>
 
 
 2. ***LinkedHashMap***：它是HashMap的一个子类，保存了记录的插入顺序，在用Iterator遍历LinkedHashMap时，先得到的记录肯定是先插入的。
- <div align=center>![LinkedHashMap java doc](/image/hashmap1/2.png)</div>
+	<div align=center>![LinkedHashMap java doc](/image/hashmap1/2.png)</div>
 
 
 3. ***TreeMap***：TreeMap实现SortedMap接口，能够把它保存的记录根据键排序，默认是按键值的升序排序，也可以指定排序的比较器，当用Iterator遍历TreeMap时，得到的记录是排过序的。如果使用排序的映射，建议使用TreeMap。
- <div align=center>![TreeMap Java doc](/image/hashmap1/3.png)</div>
+	<div align=center>![TreeMap Java doc](/image/hashmap1/3.png)</div>
 
 4. ***HashMap***：它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，可能会导致数据的不一致。如果需要满足线程安全，可以使用之前提及的ConcurrentHashMap（不建议用Hashtable）。
 
@@ -34,7 +34,7 @@ HashMap内部的数据结构，就是最经典的数组+链表实现的哈希桶
 	<div align=center>![数据结构](/image/hashmap1/4.png)</div>
 
 图中的**黑点**则是存放Key-Value的Node，其数据结构如下：
- <div align=center>![Node数据结构](/image/hashmap1/5.png)</div>
+	<div align=center>![Node数据结构](/image/hashmap1/5.png)</div>
 
 
 其中 hash是用来**定位数组索引位置**， next是链表的下一个node。
