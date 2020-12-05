@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - 1.12.7# 指定Golang 1.8
+  - "1.12.7" # 指定Golang 1.8
 
 # Specify which branches to build using a safelist
 # 分支白名单限制: 只有hugo分支的提交才会触发构建
@@ -11,7 +11,13 @@ branches:
 
 install:
 # 安装最新的hugo
-  - go get github.com/gohugoio/hugo
+ # - go get github.com/gohugoio/hugo
+   - uname -a
+   - wget https://github.com/gohugoio/hugo/releases/download/v0.69.0/hugo_0.69.0_Linux-64bit.deb
+   - sudo dpkg -i hugo*.deb
+   - hugo version
+   - ls
+   - pwd
 script:
 # 运行hugo命令
   - hugo --theme=jane
