@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JVM on Live your dream</title>
+    <link>https://taoyuan.fun/tags/jvm/</link>
+    <description>Recent content in JVM on Live your dream</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 04 Dec 2020 21:50:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://taoyuan.fun/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java Synchronized 关键字的用法</title>
+      <link>https://taoyuan.fun/post/java_synchronized1/</link>
+      <pubDate>Fri, 04 Dec 2020 21:50:00 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/java_synchronized1/</guid>
+      <description>本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共</description>
+    </item>
+    
+    <item>
+      <title>JVM GC算法和GC收集器概述</title>
+      <link>https://taoyuan.fun/post/jvmgc/</link>
+      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/jvmgc/</guid>
+      <description>JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Live your dream</title>
+    <link>https://taoyuan.fun/tags/java/</link>
+    <description>Recent content in Java on Live your dream</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 04 Dec 2020 21:50:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://taoyuan.fun/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java Synchronized 关键字的用法</title>
+      <link>https://taoyuan.fun/post/java_synchronized1/</link>
+      <pubDate>Fri, 04 Dec 2020 21:50:00 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/java_synchronized1/</guid>
+      <description>本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共</description>
+    </item>
+    
+    <item>
+      <title>Hashmap学习笔记(一)</title>
+      <link>https://taoyuan.fun/post/hashmap1/</link>
+      <pubDate>Wed, 18 Sep 2019 23:31:04 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/hashmap1/</guid>
+      <description>Java的HashMap应该算比较基础的东西，也是最近在看&amp;laquo; Redis设计与实现 &amp;raquo;，其中也有HashMap的数据结构</description>
+    </item>
+    
+    <item>
+      <title>Spring @Async/@Transactional失效原因及解决方案</title>
+      <link>https://taoyuan.fun/post/asyncandtransactionaldontwork/</link>
+      <pubDate>Sat, 14 Sep 2019 16:56:56 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/asyncandtransactionaldontwork/</guid>
+      <description>之前提到实现AOP的方法有动态代理、编译期，类加载期织入等等，Spring实现AOP的方法则就是利用了动态代理机制，正因如此，才会导致某些情</description>
+    </item>
+    
+    <item>
+      <title>Spring - AOP简单理解及术语解释</title>
+      <link>https://taoyuan.fun/post/spring_aop/</link>
+      <pubDate>Sat, 14 Sep 2019 16:40:40 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/spring_aop/</guid>
+      <description>Spring到Spring Boot再到Spring Cloud，逐渐地变成了一套完整的企业分布式系统的解决方案，已经不能单纯的认为是基于Spr</description>
+    </item>
+    
+    <item>
+      <title>JVM GC算法和GC收集器概述</title>
+      <link>https://taoyuan.fun/post/jvmgc/</link>
+      <pubDate>Fri, 13 Sep 2019 22:53:54 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/jvmgc/</guid>
+      <description>JVM是每个JAVA开发都会听说了解过的东西，相关知识有一部分也是需要深入了解的，去年刚好有机会一次团队内部技术分享，就做了这方面的一些准备</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elasticsearch on Live your dream</title>
+    <link>https://taoyuan.fun/tags/elasticsearch/</link>
+    <description>Recent content in Elasticsearch on Live your dream</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 14 Sep 2019 16:05:38 +0800</lastBuildDate>
+    
+	<atom:link href="https://taoyuan.fun/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>springboot2.0 &#43; es5.5 &#43; rabbitmq搭建搜索服务踩坑</title>
+      <link>https://taoyuan.fun/post/springboot&#43;es/</link>
+      <pubDate>Sat, 14 Sep 2019 16:05:38 +0800</pubDate>
+      
+      <guid>https://taoyuan.fun/post/springboot&#43;es/</guid>
+      <description>前一阵子准备为项目搭建一个简单的搜索服务，虽然业务数据库mongodb提供了文本搜索的支持，但是在大量文档需要通过关键词进行定位时，es明显</description>
+    </item>
+    
+  </channel>
+</rss>

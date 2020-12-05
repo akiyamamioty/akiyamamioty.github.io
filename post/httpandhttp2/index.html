@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HTTP1.0 vs SPDY vs HTTP2.0 - Live your dream</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="陶源" />
+  <meta name="description" content="介绍HTTP基础以及对比SPDY协议 介绍 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。同时HTTP协议属于TCP/I" />
+
+  <meta name="keywords" content="技术, 生活, 想法" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.69.0" />
+
+
+<link rel="canonical" href="https://taoyuan.fun/post/httpandhttp2/" />
+
+
+
+<link rel="icon" href="../../favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="HTTP1.0 vs SPDY vs HTTP2.0" />
+<meta property="og:description" content="介绍HTTP基础以及对比SPDY协议 介绍 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。同时HTTP协议属于TCP/I" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://taoyuan.fun/post/httpandhttp2/" />
+<meta property="article:published_time" content="2019-10-02T10:40:31+08:00" />
+<meta property="article:modified_time" content="2019-10-02T10:40:31+08:00" />
+<meta itemprop="name" content="HTTP1.0 vs SPDY vs HTTP2.0">
+<meta itemprop="description" content="介绍HTTP基础以及对比SPDY协议 介绍 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。同时HTTP协议属于TCP/I">
+<meta itemprop="datePublished" content="2019-10-02T10:40:31&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-02T10:40:31&#43;08:00" />
+<meta itemprop="wordCount" content="2430">
+
+
+
+<meta itemprop="keywords" content="HTTP,网络," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTTP1.0 vs SPDY vs HTTP2.0"/>
+<meta name="twitter:description" content="介绍HTTP基础以及对比SPDY协议 介绍 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。同时HTTP协议属于TCP/I"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="../../" class="logo">Live your dream</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/friendlink/">链接</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="../../lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="../../lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="../../" class="logo">
+    
+      Live your dream
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/friendlink/">链接</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">HTTP1.0 vs SPDY vs HTTP2.0</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-10-02" class="post-time">
+          2019-10-02
+        </time>
+        <div class="post-category">
+            <a href="https://taoyuan.fun/categories/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"> 基础概念 </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#背景">背景</a>
+      <ul>
+        <li><a href="#http09">http/0.9</a></li>
+        <li><a href="#http10">http/1.0</a></li>
+        <li><a href="#http11">http/1.1</a></li>
+        <li><a href="#http20">http/2.0</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础">基础</a></li>
+    <li><a href="#瓶颈">瓶颈</a></li>
+    <li><a href="#外部解决方案">外部解决方案</a>
+      <ul>
+        <li><a href="#ajax">Ajax</a></li>
+        <li><a href="#comet">Comet</a></li>
+      </ul>
+    </li>
+    <li><a href="#spdy">SPDY</a></li>
+    <li><a href="#优势">优势</a></li>
+    <li><a href="#http20-1">HTTP/2.0</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>介绍HTTP基础以及对比SPDY协议</p>
+<h2 id="介绍">介绍</h2>
+<p>HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。同时HTTP协议属于TCP/IP协议族的内部的一个子集。通常我们使用的网络都是在TCP/IP协议族基础上运作的。</p>
+<p>TCP/IP族中有一个重要的点就是分层：</p>
+<ul>
+<li>应用层：决定了向用户提供应用服务时的活动。<em><strong>HTTP, FTP，DNS</strong></em></li>
+<li>传输层：提供了网络连接中的两台计算机之间的数据传输。<em><strong>TCP，UDP</strong></em></li>
+<li>网络层：处理网络上流动的数据包（网络传输的最小单位）。 <em><strong>IP</strong></em></li>
+<li>数据链路层：处理连接网络的硬件部分。<em><strong>操作系统，设备，光纤等一切硬件范畴</strong></em></li>
+</ul>
+<p>分层带来的好处就是解耦。如果互联网用一个协议统筹。任何修改都要整体替换。分层后定义好各层之间的接口，各层内部可以自由改动。各层也只需要考虑自己所需要完成任务。</p>
+<p>HTTP位于应用层，HTTP协议的出现主要是为了解决文本传输的难题。</p>
+<h2 id="背景">背景</h2>
+<h3 id="http09">http/0.9</h3>
+<p>1990年问世，当时只有基本的文本 GET 功能。当时并没有正式的标准被建立，因此该版本可以理解为1.0之前的版本。</p>
+<h3 id="http10">http/1.0</h3>
+<p>1996年公布，1.0版本完善的请求/响应模型，并将协议补充完整。标准记载于<a href="https://www.ietf.org/rfc/rfc1945.txt">RFC1945</a>，虽然是最早的标准，目前仍然广泛使用在服务器端。</p>
+<h3 id="http11">http/1.1</h3>
+<p>1997年公布，在 1.0 基础上进行更新，增加了如 长久连接 keep-alive 与 chunked 等功能。
+目前主流的协议版本，修订版标准记载于<a href="https://www.ietf.org/rfc/rfc2616.txt">RFC2616</a></p>
+<h3 id="http20">http/2.0</h3>
+<p>时隔将近十五年时间，标准记载于<a href="https://www.ietf.org/rfc/rfc7540.txt">RFC7540</a></p>
+<p>由于协议本身非常简单，由此设想了许多应用方法并且投入实际使用。</p>
+<h2 id="基础">基础</h2>
+<ul>
+<li>客户端-服务端架构，客户端通过URL像服务端发起请求。服务端根据接收到的请求后，向客户端发送响应信息。</li>
+<li>HTTP本身是无连接的，每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。</li>
+<li>无状态的，协议对于事务处理没有记忆能力。一个新的请求就有一个新的响应，不会保存之前的任何请求和响应。</li>
+</ul>
+<p>http这样设计可以节省传输时间，也可以处理大量食物，对于不需要先前信息的请求，应答也相对较快。</p>
+<p>但是随着业务发展，无状态协议使得业务处理起来相对麻烦，因此1.1版本，引入的Cookie技术，以此来管理状态（但http仍然是无状态协议）。</p>
+<h2 id="瓶颈">瓶颈</h2>
+<p>简单来说就是，在服务端大量数据更新的情况下，HTTP无法解决更新后，数据在客户端回显的实现。使用HTTP只能频繁的访问服务端来确认。如果服务端没有更新，那么就会产生大量的无聊通信。</p>
+<p>下面这些HTTP标准就是产生瓶颈的原因：</p>
+<ul>
+<li>一条连接上只能发送一个请求</li>
+<li>请求必须从客户端发起。并且客户端不可接收“请求所对应的响应”之外的信息</li>
+<li>首部冗长，每次都要发送相同的首部。</li>
+<li>请求/响应都未经压缩，首部信息越多，延迟越大</li>
+</ul>
+<h2 id="外部解决方案">外部解决方案</h2>
+<h3 id="ajax">Ajax</h3>
+<p>利用JS和DOM，达到局部web页面替换加载效果。从已经加载完毕的web页面上发起请求，只更新局部页面。请求响应中的数据量减少。但是可能导致成倍的请求产生。</p>
+<h3 id="comet">Comet</h3>
+<p>基于HTTP长连接的“服务器推送”技术，服务端收到请求后，会将响应挂起，当内容更新时，再返回。以此达到数据更新后，立即返回客户端的效果。延迟小，性能好。但是长期占用连接，丧失了无状态高并发的特点。</p>
+<p>这两者虽说可以解决一部分HTTP协议带来的性能延迟，用户体验等问题，提高了易用性，但是它们依旧没有解决HTTP协议本身的存在的问题。</p>
+<h2 id="spdy">SPDY</h2>
+<p>为了进行根本性的改善，就需要做一些http协议上的改动。</p>
+<p>SPDY，谷歌在09年年中时发布，它的主要目标时通过解决HTTP1.1中一些显著的性能限制，来减少网页额的加载时间。</p>
+<p>由于HTTP已经被大量广泛应用，SPDY并没有完全改写HTTP协议，而是在TCP/IP协议族的应用层和传输层之间，加入了会话层的方式去实现。为了保证安全问题，SPDY还规定通信中必须使用SSL。</p>
+<h2 id="优势">优势</h2>
+<p>通过SPDY，HTTP协议获得了额外的能力：</p>
+<ol>
+<li>
+<p><strong>多路复用</strong></p>
+<p>单一的TCP链接，可以无限制处理多个HTTP请求，所有请求都在一条TCP链接上完成，减少了建立和关闭连接的消耗和延迟。</p>
+</li>
+<li>
+<p><strong>请求优先级</strong></p>
+<p>SPDY可以给请求逐个分配优先级顺序，为了再发送多个请求时，解决因为带宽低而导致响应变慢的问题。</p>
+</li>
+<li>
+<p><strong>压缩HTTP首部</strong></p>
+<p>压缩请求和相应的首部，减少通信时候的数据包数量和发送的字节数。</p>
+</li>
+<li>
+<p><strong>推送功能</strong></p>
+<p>支持服务器主动向客户端推送数据，而不必等待客户端的请求。</p>
+</li>
+<li>
+<p><strong>服务端提示</strong></p>
+<p>服务端可以主动提示客户端请求所需要的资源。请求A的同时，服务端同时返回A和B的资源，客户端发现资源B已缓存的情况下，可以避免不必要的请求。</p>
+</li>
+</ol>
+<p>使用SPDY时，web客户端不需要做什么改动，但是浏览器和服务端都需要做一定程度上的改动，目前主流浏览器都已经做了相对应的调整。不过SPDY只针对单个域名的通信多路复用，当一个web站点请求多个域名下的额资源，改善效果会受到限制。</p>
+<p>不过SPDY的确是一种可以消除HTTP瓶颈的技术。但是大部分网站的问题不是HTTP协议瓶颈导致的。还是有许多其他值得深入钻研并且改善的地方。</p>
+<h2 id="http20-1">HTTP/2.0</h2>
+<p>简单了解了一下HTTP/2.0，其实就是基于SPDY设计的，但是还有有一些不同：</p>
+<ul>
+<li>增加了HTTP/1.1 Upgrade的机制，可在TCP上直接使用HTTP/2，不像SPDY那样必须在TLS上。即HTTP/2.0支持明文 HTTP传输，而SPDY强制使用HTTPS</li>
+<li>HTTP/2.0消息头的压缩算法采用HPACK，而非SPDY采用的DEFLATE</li>
+<li>HTTPS连接时使用NPN的规范版ALPN（Applcation Layer Protocol Negociation）。</li>
+<li>更完善的协议商讨和确认流程。</li>
+<li>更完善的Server Push流程。</li>
+<li>增加控制帧的种类，并对帧格式考虑得更细致。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>简单对比了HTTP/1.0, SPDY, HTTP/2.0的区别，太具体的基本理论和算法，还没有太深入理解。</p>
+<p>SPDY和HTTP2.0的确都可以消除HTTP瓶颈的技术。但是大部分网站的问题不是HTTP协议瓶颈导致的。还是有许多其他值得深入钻研并且改善的地方。</p>
+<p>即使HTTP协议被使用至今超过了20年，为了更好的性能，用户使用web时的速度体验，技术依旧需要</p>
+
+    </div>
+
+    
+    
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://taoyuan.fun/tags/http/">HTTP</a>
+          <a href="https://taoyuan.fun/tags/%E7%BD%91%E7%BB%9C/">网络</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="../../post/java_synchronized1/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">Java Synchronized 关键字的用法</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="../../post/hashmap1/">
+            <span class="next-text nav-default">Hashmap学习笔记(一)</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:akiyamamio.ty@gmail.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://taoyuan.fun/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2020
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        陶源
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="../../lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="../../js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="../../js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

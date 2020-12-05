@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Java Synchronized 关键字的用法 - Live your dream</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="陶源" />
+  <meta name="description" content="本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共" />
+
+  <meta name="keywords" content="技术, 生活, 想法" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.69.0" />
+
+
+<link rel="canonical" href="https://taoyuan.fun/post/java_synchronized1/" />
+
+
+
+<link rel="icon" href="../../favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="Java Synchronized 关键字的用法" />
+<meta property="og:description" content="本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://taoyuan.fun/post/java_synchronized1/" />
+<meta property="article:published_time" content="2020-12-04T21:50:00+08:00" />
+<meta property="article:modified_time" content="2020-12-04T21:50:00+08:00" />
+<meta itemprop="name" content="Java Synchronized 关键字的用法">
+<meta itemprop="description" content="本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共">
+<meta itemprop="datePublished" content="2020-12-04T21:50:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-12-04T21:50:00&#43;08:00" />
+<meta itemprop="wordCount" content="2125">
+
+
+
+<meta itemprop="keywords" content="JAVA,JVM," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Synchronized 关键字的用法"/>
+<meta name="twitter:description" content="本文简单介绍 Java Synchronized关键字的用法和一小部分原理，不会涉及过多底层细节。 简述 Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="../../" class="logo">Live your dream</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/friendlink/">链接</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="../../lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="../../lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="../../" class="logo">
+    
+      Live your dream
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/post/">文章</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/friendlink/">链接</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://taoyuan.fun/about/">关于我</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java Synchronized 关键字的用法</h1>
+      
+      <div class="post-meta">
+        <time datetime="2020-12-04" class="post-time">
+          2020-12-04
+        </time>
+        <div class="post-category">
+            <a href="https://taoyuan.fun/categories/java/"> JAVA </a>
+            <a href="https://taoyuan.fun/categories/jvm/"> JVM </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#简述">简述</a></li>
+        <li><a href="#synchronized-关键字">synchronized 关键字</a></li>
+        <li><a href="#synchronized实例方法">synchronized实例方法</a></li>
+        <li><a href="#synchronized-静态方法">synchronized 静态方法</a></li>
+        <li><a href="#实例方法中的synchronized代码块">实例方法中的synchronized代码块</a></li>
+        <li><a href="#静态方法中的synchronized代码块">静态方法中的synchronized代码块</a></li>
+        <li><a href="#同步synchronized与数据可见性data-visibility">同步（Synchronized）与数据可见性（Data Visibility）</a></li>
+        <li><a href="#需要在哪些对象上同步">需要在哪些对象上同步？</a></li>
+        <li><a href="#其他">其他</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>本文简单介绍 Java <strong>Synchronized</strong>关键字的用法和一小部分原理，不会涉及过多底层细节。</p>
+<h3 id="简述">简述</h3>
+<p>Java 的 Synchronized 同步机制是 Java 的第一个用于同步访问多个线程共享的对象的机制。但是最初 Synchronized 同步机制不是很高效，这就是为什么 Java 5 之后提供了一整套并发类来帮助我们实现比 Synchronized 更加细粒度的并发控制的原因。但是在之后Java版本中，对于synchronized也做了非常多的优化。</p>
+<h3 id="synchronized-关键字">synchronized 关键字</h3>
+<p>Java 中的 Synchronized 同步块都用 synchronized 关键字标记。Java 中的同步块是指在某些对象上同步。在同一个对象上同步的所有代码块只能在其内部同时执行一个线程。尝试进入同步块的所有其他线程将被阻止，直到同步块内的线程退出该块为止。</p>
+<p>Synchronized 关键字可用于标记四种不同类型的块：</p>
+<ul>
+<li>实例方法</li>
+<li>静态方法</li>
+<li>实例方法中的代码块</li>
+<li>静态方法中的代码块</li>
+</ul>
+<p>这些块在不同的对象上同步。需要哪种类型的同步块取决于具体情况。</p>
+<h3 id="synchronized实例方法">synchronized实例方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public class MyClass {
+
+  private int number = 0;
+
+  public synchronized void add(int value){
+      this.number += value;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在add（）方法声明中使用了synchronized关键字，表明这个方法是同步的。</p>
+<p>Java中的同步实例方法在<em><strong>拥有该方法的实例（对象）上同步</strong></em>。每个MyClass实例只能有一个线程可以在同步实例方法（add方法）中执行。不过，如果你new了多个MyClass实例，每个实例的add方法都在它们各自的实例上同步。</p>
+<p>如果存在多个实例，<strong>则每个实例可以一次在一个同步实例方法中执行一个线程。</strong></p>
+<p>如果一个实例存在多个同步实例方法，则<strong>每个实例只有一个线程可以执行一个方法</strong>。因此，下面的代码中，只有一个线程可以在两个同步(add/substract)方法中的一个内部执行。即<strong>每个实例总共一个线程</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public class MyClass {
+
+  private int number = 0;
+
+  public synchronized void add(int value){
+      this.number += value;
+  }
+  public synchronized void subtract(int value){
+      this.number -= value;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="synchronized-静态方法">synchronized 静态方法</h3>
+<p>静态方法被标记为同步方法，就像和用synchronized关键字的实例方法一样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public static MyStaticClass{
+
+  private static int number = 0;
+
+  public static synchronized void add(int value){
+      number += value;
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>同样的，synchronized关键字表明了add（）方法是同步的。</p>
+<p>同步静态方法在<em><strong>同步静态方法所属类的类对象上同步</strong></em>。由于每个类的JVM中仅存在一个类对象，因此<strong>在同一类中的静态同步方法内只能执行一个线程。</strong></p>
+<p>如果一个类包含多个静态同步方法，则只能在一个方法中同时执行一个线程。就如同synchronized实例方法中的add/substract方法一样，不再过多举例。</p>
+<h3 id="实例方法中的synchronized代码块">实例方法中的synchronized代码块</h3>
+<p>有时候我们不必同步整个方法，那么最好只同步一部分方法。synchronized也提供的同步方法中代码块的功能。</p>
+<p>这是未被synchronized声明的Java方法中的synchronized代码块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public void add(int value){
+  synchronized(this){
+     this.number += value;   
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>使用 synchronized(this)将代码块标记为同步代码块。这段代码将像执行同步方法一样执行。</p>
+<p>要注意Java同步代码块是如何在括号中使用对象。在示例代码中中，<strong>使用了“ this”，这是调用add方法的实例</strong>。同步代码块在括号中使用的对象称为监视（monitor）对象。意思是：<strong>在Monitor对象上，这段代码是同步的</strong>。同步实例方法将其所属的Class用作monitor对象。</p>
+<p>在同一监视对象上同步的代码块内只能执行一个线程。
+此外，这段代码和synchronized实例方法的add（）方法是等效的。</p>
+<h3 id="静态方法中的synchronized代码块">静态方法中的synchronized代码块</h3>
+<p>synchronized也可以在静态方法内部使用。下面例子中的方法在该方法所属的MyClass类的类对象上同步：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public static void add(int value){
+     synchronized(MyClass.class){
+        this.number += value; 
+     }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果同时存在synchronized的静态方法，和静态方法中的synchronized代码块，同时只能有一个线程可以在任意一个方法的内部执行。</p>
+<h3 id="同步synchronized与数据可见性data-visibility">同步（Synchronized）与数据可见性（Data Visibility）</h3>
+<p>如果我们不使用Synchronized关键字（或Java volatile关键字），则无法保证当一个线程更改与其他线程共享的变量的值时，其他线程可以看到更改后的值。开发人员无法控制或保证何时将一个线程保留在CPU寄存器中的变量提交(commit)到主存储器，也无法保证何时其他线程从主存储器刷新(refresh) CPU寄存器中的变量。</p>
+<p>同步关键字可以改变这一点。当线程进入同步块时，它将刷新该线程可见的所有变量的值。当线程退出同步块时，对该线程可见的变量的所有更改都将提交给主内存。这有一点类似于volatile关键字的工作方式。</p>
+<h3 id="需要在哪些对象上同步">需要在哪些对象上同步？</h3>
+<p>如本在本文多次提到的，同步块必须在某个对象上同步。实际上，我们可以选择任何要同步的对象，但是建议不要在String对象或任何原始类型包装类对象上进行同步，因为编译器可能会优化这些对象，以便在我们在不同的地方使用相同的实例。</p>
+<p>比如&quot;OK&rdquo;, Integer.valueOf(1), Java编译器或者Java库会实际上会使用相同的对象。如果你以为用了不同的对象，那么程序可能产生你不想要的行为</p>
+<p>所以为了安全起见，在this或new Object()上进行同步。 Java编译器/JVM/Java库不会在内部缓存或重用它们。</p>
+<h3 id="其他">其他</h3>
+<p>后续会继续更新一些synchronized的限制和替代方案，还会继续深挖一下底层细节。</p>
+
+    </div>
+
+    
+    
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://taoyuan.fun/tags/java/">JAVA</a>
+          <a href="https://taoyuan.fun/tags/jvm/">JVM</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="../../post/httpandhttp2/">
+            <span class="next-text nav-default">HTTP1.0 vs SPDY vs HTTP2.0</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:akiyamamio.ty@gmail.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://taoyuan.fun/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2020
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        陶源
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="../../lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="../../js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="../../js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
