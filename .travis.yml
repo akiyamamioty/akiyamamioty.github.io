@@ -20,6 +20,7 @@ install:
    - pwd
 script:
 # 运行hugo命令
+  - hugo
   - hugo --theme=jane
 
 
