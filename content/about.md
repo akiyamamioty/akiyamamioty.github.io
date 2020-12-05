@@ -10,7 +10,7 @@ comment: true
 mathjax: false
 ---
 
-反复与坚持之后<br>柔水终成雕刀
+反复与坚持之后<br>柔水终成雕刀。
 
 
 ## 关于我
