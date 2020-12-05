@@ -362,26 +362,28 @@
 <p>Java数据结构中定义了Map接口，该接口有四个常用实现类：HashMap， Hashtable，LinkedHashMap和TreeMap。</p>
 <p>针对上面四个常用类简单的介绍一下：</p>
 <ol>
-<li><em><strong>Hashtable</strong></em>: 从下面的Java doc就可以看出，其本身是线程安全的，但是并发性不如concurrent中的ConcurrentHashMap，而不需要线程安全时候，也推荐使用HashMap，故可以算是一个遗留类，不推荐使用。</li>
-</ol>
+<li>
+<p><em><strong>Hashtable</strong></em>: 从下面的Java doc就可以看出，其本身是线程安全的，但是并发性不如concurrent中的ConcurrentHashMap，而不需要线程安全时候，也推荐使用HashMap，故可以算是一个遗留类，不推荐使用。</p>
 <!-- raw HTML omitted -->
-<ol start="2">
-<li><em><strong>LinkedHashMap</strong></em>：它是HashMap的一个子类，保存了记录的插入顺序，在用Iterator遍历LinkedHashMap时，先得到的记录肯定是先插入的。</li>
-</ol>
+</li>
+<li>
+<p><em><strong>LinkedHashMap</strong></em>：它是HashMap的一个子类，保存了记录的插入顺序，在用Iterator遍历LinkedHashMap时，先得到的记录肯定是先插入的。</p>
 <!-- raw HTML omitted -->
-<ol start="3">
-<li><em><strong>TreeMap</strong></em>：TreeMap实现SortedMap接口，能够把它保存的记录根据键排序，默认是按键值的升序排序，也可以指定排序的比较器，当用Iterator遍历TreeMap时，得到的记录是排过序的。如果使用排序的映射，建议使用TreeMap。</li>
-</ol>
+</li>
+<li>
+<p><em><strong>TreeMap</strong></em>：TreeMap实现SortedMap接口，能够把它保存的记录根据键排序，默认是按键值的升序排序，也可以指定排序的比较器，当用Iterator遍历TreeMap时，得到的记录是排过序的。如果使用排序的映射，建议使用TreeMap。</p>
 <!-- raw HTML omitted -->
-<ol start="4">
-<li><em><strong>HashMap</strong></em>：它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，可能会导致数据的不一致。如果需要满足线程安全，可以使用之前提及的ConcurrentHashMap（不建议用Hashtable）。</li>
+</li>
+<li>
+<p><em><strong>HashMap</strong></em>：它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，可能会导致数据的不一致。如果需要满足线程安全，可以使用之前提及的ConcurrentHashMap（不建议用Hashtable）。</p>
+</li>
 </ol>
 <p>本篇主要简单介绍的就是HashMap的实现，也是由于HashMap是最最常用的一个，可以满足大部分场景。</p>
 <h2 id="内部结构">内部结构</h2>
 <p>HashMap内部的数据结构，就是最经典的数组+链表实现的哈希桶（JDK 1.7之前)，从1.8之后，链表节点数量满足一定条件后，会自动转换成红黑树的数据结构，进一步提高查询效率。简单来说，HashMap的结构就是一个<strong>指针数组</strong>。
 <!-- raw HTML omitted --><img src="../../image/hashmap1/4.png" alt="数据结构"><!-- raw HTML omitted --></p>
-<p>图中的<strong>黑点</strong>则是存放Key-Value的Node，其数据结构如下：</p>
-<!-- raw HTML omitted -->
+<p>图中的<strong>黑点</strong>则是存放Key-Value的Node，其数据结构如下：
+<!-- raw HTML omitted --><img src="../../image/hashmap1/5.png" alt="Node数据结构"><!-- raw HTML omitted --></p>
 <p>其中 hash是用来<strong>定位数组索引位置</strong>， next是链表的下一个node。</p>
 <h2 id="主要字段">主要字段</h2>
 <!-- raw HTML omitted -->
